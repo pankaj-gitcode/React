@@ -1,0 +1,128 @@
+*{
+  padding: 0;
+  margin:0;
+  box-sizing: border-box;
+}
+
+html,body {
+  width: 100vw;
+}
+
+/*style main div*/
+#main{
+  /* background-color: #b46767; */
+  width: 100vw;
+  height: 70vh;
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  box-shadow: 0px 5px 8px 2px rgba(0,0,0,0.6);
+}
+/*container rules*/
+#container{
+  width: 80vw;
+  height: 30vh;
+  margin: 20px 10%;
+  background-color: rgb(182, 186, 182);
+  position: fixed;
+  bottom:0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  box-shadow: 5px 5px 8px 6px rgba(0,0,0,0.6);
+
+}
+/*create boxes in row with flex*/
+.box{
+  width: 60px;
+  height: 120px;
+  /* background-color: yellow; */
+  margin: 2px 2%;;
+}
+/*-----------Switch Section---------------*/
+.off{
+  width:60px;
+  height: 60px;
+  background-color:#fff;
+  text-align: center;
+
+  /*create switch*/
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+
+  /*create shadow box*/
+  box-shadow: 0px -8px 2px 0px rgba(0,0,0,0.5);
+  box-shadow: none;
+  cursor: pointer
+}
+.on{
+  width:60px;
+  height: 60px;
+  background-color: #fff;
+  text-align:center;
+
+  /*creare switch*/
+  border-bottom-left-radius: 20px;
+  border-bottom-right-radius: 20px; 
+
+  /*create shadow box*/
+  box-shadow: 0px 8px 2px 0px rgba(0,0,0,0.5);
+  cursor: pointer;
+
+  position: relative;
+
+}
+.on span{
+  position: absolute;
+  bottom:0;
+  right: 25px;
+}
+
+
+
+
+/* *********************************************************** */
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
