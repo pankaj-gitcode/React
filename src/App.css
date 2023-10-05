@@ -1,0 +1,289 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+html,body{
+  /* margin:0; */
+  min-width: 100vw;
+  min-height: 100vh;
+}
+#main{
+  min-width:100vw;
+  height:100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+/*App title rules*/
+#app-name{
+  color: #FF6600;
+  text-shadow:0px 2px 5px rgba(218, 208, 201, 0.5);
+  /* color:green; */
+  text-transform:uppercase;
+  position: absolute;
+  top:20px;
+  font-size:3rem;
+  font-family:'Courier New', Courier, monospace;
+
+}
+
+/* container */
+#container{
+  background-color:#FF6600;
+  width: 70vw;
+  min-height: 50vh;
+  border-radius: 10px;
+  box-shadow: 6px 6px 8px 2px rgba(240, 228, 228, 0.2);
+  
+  /*to make the div boxes at center Y-axix*/
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  /* for overflow text and elements */
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+
+/*boxes*/
+.box{
+  font-size: 1.2rem;
+  font-weight:500;
+  font-family:Arial, Helvetica, sans-serif;
+  margin-left: 8%;
+}
+/*styling title: label password*/
+#title{
+  font-weight:600;
+  padding-right: 10px;
+  
+  text-shadow: 2px 2px 9px rgba(0,0,0,0.5);
+}
+/*text-box*/
+#pass-textbox{
+  padding: 15px 10% 15px 1%;
+  /* border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px; */
+  border-radius: 10px;
+  border:none;
+ 
+  box-shadow: 0px 0px 8px 1px rgba(0,0,0,0.6);
+  /* background: linear-gradient(to left,rgba(254, 254, 254, 0.2), rgb(250, 250, 250));  */
+}
+/*change width of text box texts and color*/
+input[type='text']{
+  font-size: 1rem;
+  color: green;
+  background-color: #000;
+  width: 500px;
+}
+#btn{
+  font-size: 1rem;
+  padding: 12px 2%;
+  margin-left: 10px;
+
+  border-radius: 10px;
+  /* border:none; */
+  box-shadow: 6px 6px 8px 2px rgba(0,0,0,0.2);
+
+  /* background:linear-gradient(to top,rgba(0,0,0, 0.2),#000); */
+  background-color: black;
+  color: #FF6600;
+  cursor: pointer;
+
+  transition: backgound .5 ease;
+}
+#btn:hover{
+  background: linear-gradient(rgba(0,0,0,0.2),#000);
+  transform: scaleX(1.2);
+}
+/*box-bottom*/
+
+#box-bottom{
+  margin: 3% 0 3% 15%;
+  font-size: 1.1rem;
+
+  text-shadow: 2px 1px 6px rgba(0,0,0,0.8);
+}
+/*styling range*/
+#range{
+  margin: 0 1%;
+  background-color: black;
+}
+/*chnage the bar line color and border-radius*/
+input[type='range']{
+  appearance:none;
+  
+  /* background-color: black; */
+  width: 28%;
+  height:10px;
+  background: #000;
+  border-radius: 10px;
+}
+/*change circle scroller color*/
+input[type='range']::-webkit-slider-thumb{
+  appearance: none;
+  width:20px;
+  height:20px;
+  border-radius:50%;
+  background: #000;
+}
+/* spacing chckboxes */
+.check{
+  margin: 0 1% 0 2%;
+}
+
+
+/*Media Query*/
+@media screen and (max-width:800px){
+  /*conatiner holds both div boxes*/
+  #container{
+    min-height: 80vh;
+    min-width: 80vw;
+
+    text-overflow: hidden;
+    overflow:hidden;
+
+    display:flex;
+    flex-direction: column;
+    align-items:flex-start;
+    justify-content:flex-start;
+    flex-wrap: nowrap;
+  }
+  /*fix width and margin top-bottom and let-right*/
+  .box{
+    
+    /* background-color: red; */
+    width: 100vw;
+    margin:20% 2%;
+  }
+  /*spacing top & bottom for Texts title*/
+  #title{
+    margin:10% 0;
+  }
+  /*text-box margin top-bottom and total width*/
+  #pass-textbox{
+    margin: 5% 0;
+    width: 78vw;
+  }
+  
+  /*button made to down with display flex*/
+  #btn{
+    display:flex;
+  }
+  /*make container position relative to adjust bottom box div*/
+  #container{
+    position:relative;
+  }
+  #box-bottom{
+    position:absolute;
+    width: 75vw;
+    top:46%;
+    right:1%;
+
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    grid-gap:10px;
+
+  
+    font-size: 1rem;
+    font-weight:600;
+  }
+
+  /*setting range width and reducing from right & top using 
+  position relative*/
+  #range{
+    width:100%;
+    /* background-color: green; */
+    position:relative;
+    right:40%;
+    top:30%;
+  }
+  /*check box width*/
+  .check{
+    width:12%;
+  }
+  /*used flex in column and set position relative to leave 
+  space from right*/
+  .charNum{
+    font-size:0.94rem;
+    /* background-color: yellow; */
+    position:relative;
+    right:80%;
+    line-height: 30px;
+  }
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ********************************************************************* */
+/* #root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
+} */
