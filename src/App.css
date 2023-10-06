@@ -138,8 +138,19 @@ input[type='range']::-webkit-slider-thumb{
 
 /*Media Query*/
 @media screen and (max-width:800px){
+   #app-name{
+    margin-top: 5px;
+    font-size:1.5rem;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow:none;
+    /* text-overflow:ellipsis; */
+    /* text-align:center; */
+    /* line-height:40px; */
+   }
+  
   /*conatiner holds both div boxes*/
   #container{
+    margin-top: 60px;
     min-height: 80vh;
     min-width: 80vw;
 
