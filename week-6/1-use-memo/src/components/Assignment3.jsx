@@ -10,34 +10,31 @@ export const Assignment3 = () => {
         { name: 'Tomato', value: 30 },
         // Add more items as needed
     ]);
-    //new items state variable
-    const [newItems, setNewItems] = useState(
-        {name: '', value: 0}
-    )
-
-    // handle name change
-    const nameChange = (e)=>{
-        setNewItems({...newItems, name: e.target.value})
-    }
-    // handle value change
-    const valueChange = (e)=>{
-        setNewItems({...newItems, value:parseInt(e.target.value, 10)})
-    }
-    //addItems to main object:items
-    const addItems = ()=>{
-        setItems([...items, newItems])
-        setNewItems({name:'', value:0});
-    }
+    const [newItem, setNewItem ] = useState({
+        name: '',
+        value: 0
+    })
 
     // Your code starts here
     const totalValue = useMemo(()=>{
-        let totalSum = 0;
-        //items = {v: 10, v: 20, v:30}
-        for(let i=0; i<items.length; i++){
-            totalSum +=  items[i].value;
-        }
-        return totalSum;
-    }, [items]);
+        return items.reduce((total, item)=> 
+        total + item.value, 0 )
+    }, [items])
+
+    //handle name
+    const newName = (e)=>{
+        setNewItem({...newItem, name:e.target.value})
+    }
+    //handle value
+    const newValue = (e)=>{
+        setNewItem({...newItem, value: parseInt(e.target.value, 10)})
+    }
+    //add items button
+    const addItem = ()=>{
+        setItems([...items,newItem]);
+        //now empty newItem obj
+        setNewItem({name:'', value:0});
+    }
     // Your code ends here
     return (
         <div>
@@ -47,12 +44,12 @@ export const Assignment3 = () => {
                 ))}
             </ul>
             <p>Total Value: {totalValue}</p>
+            {/* adding input boxes for name & value */}
+            Name:<input type="text" placeholder="Enter item name" value={items.name} onChange={newName}/>
+            Value:<input type="number" placeholder="Enter item price" value={items.value} onChange={newValue}/>
 
-            name: <input type="text" value={newItems.name} onChange={nameChange} />
-            value: <input type="number" value={newItems.value} onChange={valueChange} />
-            <button onClick={addItems}>Add items</button>
+            <button onClick={addItem}>Add Item</button>
 
-            {console.log(items)}
         </div>
     );
 };
