@@ -15,15 +15,15 @@ export const Assignment3 = () => {
         {name: '', value: 0}
     )
 
-    //input name
+    // handle name change
     const nameChange = (e)=>{
         setNewItems({...newItems, name: e.target.value})
     }
-    //input value
+    // handle value change
     const valueChange = (e)=>{
         setNewItems({...newItems, value:parseInt(e.target.value, 10)})
     }
-    //addItems to main objects:items
+    //addItems to main object:items
     const addItems = ()=>{
         setItems([...items, newItems])
         setNewItems({name:'', value:0});
