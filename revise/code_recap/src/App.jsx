@@ -1,44 +1,35 @@
-//Use of UseEffect
+// use of useMemo()
+// If I ask you to create an app that does two things -
+// 1. Increases a counter by 1
+// 2. Lets user put a value in an input box (n) and you need
+// to show sum from 1-n
+// One restriction - everything needs to be inside App()
 
-import React, { useEffect, useState } from 'react'
-import axios from 'axios'
-
+import React, { useMemo, useState } from 'react'
 import './App.css'
 
 export default function App(){
-  const [todoId, setTodoId] = useState(1);
-  const changeTodoId1 = ()=>{setTodoId(1)}  
-  const changeTodoId2 = ()=>{setTodoId(2)}  
-  const changeTodoId3 = ()=>{setTodoId(3)}  
-  return(
-    <div>
-      <button onClick={changeTodoId1}>1</button>
-      <button onClick={changeTodoId2}>2</button>
-      <button onClick={changeTodoId3}>3</button>
-      <MainApp id={todoId}/>
-    </div>
-  )
-}
+  const [number, setNumber] = useState(0);
+  const [count, setCount] = useState(0);
 
-//component: MainApp
-const MainApp = ({id})=>{
-  const [todo, setTodo] = useState([]);
-
-  useEffect(()=>{
-    const data = async ()=>{
-      const res = await axios.get(`https://sum-server.100xdevs.com/todo?id=${id}`);
-      setTodo(res.data.todo);
+  const res = useMemo(()=>{
+    let sum = 0;
+    for (let i=0; i<=number; i++){
+      sum = sum+i;
     }
-    data()
-  }, [id])
+    return sum
+  }, [count, number])
+
+  const increaseCount = ()=>setCount(number=>number+1)
 
   return(
     <div>
-      <ul>
-        <li>Id: {todo.id}</li>
-        <li>Title: {todo.title}</li>
-        <li>Description: {todo.description}</li>
-      </ul>
+      <input type="number" placeholder="Enter number to get sum from 1 to n" 
+        value={number}
+        onChange={(e)=>setNumber(e.target.value)}
+      />
+      <button onClick={increaseCount}>Counter ({count})</button>
+      <p>Sum is: {res}</p>
     </div>
   )
 }
