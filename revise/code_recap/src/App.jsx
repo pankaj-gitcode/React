@@ -1,37 +1,48 @@
-import React, { useEffect, useMemo, useState } from 'react'
+//use of memo(), comparing the result with prop as static value and another one with reference value from the function
+
+import React, {memo, useState} from 'react'
 import './App.css'
 
 export default function App(){
-  const [exchange1Data, setExchange1Data] = useState(0);
-  const [exchange2Data, setExchange2Data] = useState(0);
-  const [bankData, setBankData] = useState(0);
- 
-  // useEffect handeling exchangeDatas & bank data
-  useEffect(()=>{setExchange1Data(100); console.log("UE-1")}, []);
-  useEffect(()=>{setExchange2Data(100); console.log("UE-2")}, []);
-  useEffect(()=>{setTimeout(()=>{setBankData(100); console.log("SetTimeout")}, 5000)}, []);
-
-  //counter button section
   const [counter, setCounter] = useState(0);
-  const counterFunc = ()=>setCounter(counter=>counter+1);
 
-  console.log("Render-1")
+  //button function to re-render the counter and the components
+  const counterFunc = ()=>{
+    console.log("Button re-rendering")
+    setCounter(counter=>counter+1)
+  };
 
-  //useMemo: memoise the total tax everytime counter button clicked with increase in counter
-  const tax = useMemo(()=>{
-    const totalExchangeData = exchange1Data + exchange2Data;
-    return totalExchangeData;
-  }, [counter,exchange1Data])
-
-  const totalTax = ( tax + bankData ) * 0.3; //totalTax dependes on tax which uses useMemo()
-  
-  console.log("Render-2")
+  //For Display1&2 components
+  const res = 100;
+  const display2Val = ()=>{
+    const val = 200;
+    return val;
+  }
 
   return(
     <div>
-      <p>Total Tax is: {totalTax}</p>
-      <button onClick={counterFunc}>Counter</button>
-      {console.log("Render-3")}
+      <button onClick={counterFunc}>Counter {counter}</button>
+      <Display1 result = {res}/>
+      <Display2 result= {display2Val} />
     </div>
   )
 }
+
+//component-1: Display-1 [wont re-render]
+const Display1 = memo( ({result})=>{
+    console.log("Display-1 re-rendering");
+    return(
+      <div>Display-1 value is: {result}</div>
+    )
+  }
+ )
+
+//component-2: Display-2  [it'll re-render due to using reference value as declared in function display2Val()]
+const Display2 = memo( ({result})=>{
+  console.log("Display-2 re-rendering");
+  return(
+    <div>Display-2 value is: {result()}</div>
+  )
+}
+
+)
