@@ -5,31 +5,37 @@
 // to show sum from 1-n
 // One restriction - everything needs to be inside App()
 
-import React, { useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import './App.css'
 
 export default function App(){
-  const [number, setNumber] = useState(0);
-  const [count, setCount] = useState(0);
+  const [inputNum, setInputNum] = useState(0);
+  const [countNum, setCountNum] = useState();
 
   const res = useMemo(()=>{
     let sum = 0;
-    for (let i=0; i<=number; i++){
-      sum = sum+i;
+    for (let i=0; i<=inputNum;i++){
+      sum += i;
     }
-    return sum
-  }, [count, number])
+    return sum;
+  }, [inputNum]);
 
-  const increaseCount = ()=>setCount(number=>number+1)
+  
+  const counterInc = ()=>{
+    return setCountNum(res+1)
+  };
 
   return(
     <div>
-      <input type="number" placeholder="Enter number to get sum from 1 to n" 
-        value={number}
-        onChange={(e)=>setNumber(e.target.value)}
+      <input type="number" 
+      placeholder="Enter Your number to get sum from 1 to n" 
+        value={inputNum}
+        onChange={(e)=>setInputNum(e.target.value)}
       />
-      <button onClick={increaseCount}>Counter ({count})</button>
+
       <p>Sum is: {res}</p>
+      <button onClick={counterInc}>Counter </button>
+      <p>Counter sum is: {countNum}  👈🏽[Sum+1]</p>
     </div>
   )
 }
