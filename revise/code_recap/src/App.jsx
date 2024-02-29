@@ -1,31 +1,35 @@
-// how many times the page loads there should be Page-count displayed 
-// if we don't remove strictMode in main.jsx then we've re-rendering 2 times where pageCount=2 [initial value]
-// whereas if we remove React.StrictMode then we have pageCount=1 [initial value]
-// means due to React.StrictMode we have one extra rendering
+// render the content on browser
+// manually alter the exisiting content
 
-//but we can't remove Strict mode everytime, so we'll use 'useRef()'
+//<---------- Using useEffet --------------->
 
-import React, {useState, useRef} from 'react'
+import React, {useEffect, useState, useRef, useCallback} from 'react'
 import './App.css'
 
-let pageRender = 0;
-
 export default function App(){
-  const [count, setCount] = useState(0);
-  const componentRender = useRef(0);
- console.log(JSON.stringify(componentRender))
-  const counterFunc = ()=>{
-    setCount(count=>count+1);
+  const [name, setName] = useState('Raj');
+  const nameRef = useRef();
+  
+  const renderCounter = useRef(0);
+  renderCounter.current += 1;
+
+  //conventional way, using useEffect and changing DOM manually
+  useEffect(()=>{
+    document.getElementById('city').innerHTML = `<h5>${name} is from Goa!</h5>`
+  }, []);
+  const changeInfo = ()=>{
+    const info = nameRef.current.innerHTML = `<h3>${name} is 18 years</h3>`; //updating elements using userRef_variable.current
+    setName(info)
+    console.log(info, name)
   }
 
-  pageRender += 1; // with Strict Mode, so initial value=2
-  componentRender.current += 1;  //with StrictMode, but used "useRef" so intial value=1
 
   return(
     <div>
-      <button onClick={counterFunc}>Counter {count}</button>
-      <p>Page Render {pageRender} times</p>
-      <p>Component Rendered {componentRender.current} times</p>{console.log(JSON.stringify(componentRender))}
+      <button onClick={changeInfo}>Click to see next</button>
+      <h5 ref={nameRef}>Hi there, this is &quot;{name}&quot;</h5>
+      <h5 id="city">Which city ${name} belongs to!</h5>
+      <h5>Number of renders: {renderCounter.current}</h5>
     </div>
   )
 }
