@@ -1,35 +1,31 @@
-// render the content on browser
-// manually alter the exisiting content
-
-//<---------- Using useEffet --------------->
-
-import React, {useEffect, useState, useRef, useCallback} from 'react'
+import React from 'react'
 import './App.css'
+import {BrowserRouter, Route, Routes} from 'react-router-dom'
+import { Landing } from './component/Landing'
+import { Dashboard } from './component/Dashboard'
+import { Home } from './component/Home'
+
 
 export default function App(){
-  const [name, setName] = useState('Raj');
-  const nameRef = useRef();
-  
-  const renderCounter = useRef(0);
-  renderCounter.current += 1;
 
-  //conventional way, using useEffect and changing DOM manually
-  useEffect(()=>{
-    document.getElementById('city').innerHTML = `<h5>${name} is from Goa!</h5>`
-  }, []);
-  const changeInfo = ()=>{
-    const info = nameRef.current.innerHTML = `<h3>${name} is 18 years</h3>`; //updating elements using userRef_variable.current
-    setName(info)
-    console.log(info, name)
-  }
-
+  const landing = ()=>{window.location.href='/landing'};
+  const dashboard = ()=>{window.location.href='/dashboard'}
 
   return(
     <div>
-      <button onClick={changeInfo}>Click to see next</button>
-      <h5 ref={nameRef}>Hi there, this is &quot;{name}&quot;</h5>
-      <h5 id="city">Which city ${name} belongs to!</h5>
-      <h5>Number of renders: {renderCounter.current}</h5>
+      <div style={{backgroundColor:'brown'}}><center>Header</center>
+      <button onClick={landing}>Landing Page</button>
+      <button onClick={dashboard}>Dashboard Page</button>
+      </div>
+      <BrowserRouter>
+        <Routes>
+          <Route path={'/landing'}  element={<Landing/>}/>
+          <Route path={'/dashboard'} element={<Dashboard/>}/>
+          <Route path={'/'} element={<Home/>}/>
+        </Routes>
+      </BrowserRouter>
+      <div style={{backgroundColor:'brown'}}><center>Header</center></div>
+
     </div>
   )
 }
