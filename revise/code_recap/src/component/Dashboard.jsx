@@ -1,7 +1,8 @@
-export function Dashboard(){
+
+export const Dashboard = ()=>{
     return(
-        <div style={{backgroundColor:'green'}}>
-            <h1>This is Dashboard Page</h1>
+        <div style={{backgroundColor: 'RoyalBlue'}}>
+            <h5>This is Dashboard page...</h5>
         </div>
     )
 }
