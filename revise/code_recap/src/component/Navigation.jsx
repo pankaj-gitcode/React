@@ -8,9 +8,9 @@ export const Navigation = ()=>{
 
     return(
         <div>
-            <button onClick={landingFunc}>Landing Page</button>
-            <button onClick={dashboardFunc}>Dashboard Page</button>
-            <button onClick={homeFunc}>Home Page</button>
+            <button onClick={landingFunc}>Landing Page {console.log("Navigation Page")}</button>
+            <button onClick={dashboardFunc}>Dashboard Page {console.log("Navigation Page")}</button>
+            <button onClick={homeFunc}>Home Page {console.log("Navigation Page")}</button>
         </div>
     )
 }

@@ -1,42 +1,38 @@
-import React from 'react'
+import React, { Suspense, lazy } from "react";
 import './App.css'
 import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
-import { Home } from './component/Home'
-import { Landing } from './component/Landing'
-import { Dashboard } from './component/Dashboard'
-import { Navigation } from './component/Navigation'
+// import { Home } from "./component/Home";
+import { Landing } from "./component/Landing";
+
+const Dashboard = lazy(()=>import('./component/Dashboard'));
+const Home = lazy(()=>import('./component/Home'));
 
 export default function App(){
+
   return(
     <div>
-
-
-      <BrowserRouter>
-        <div style={{backgroundColor:'brown', padding:'10px'}}><Navigate /></div>
+    <BrowserRouter>
+      <div><AppBar/></div>
+      <Suspense fallback={<p>Loading...</p>}>
         <Routes>
-          <Route path={'/navigation'} element={<Navigation/>}/>
-          <Route path={'/'} element={<Home />} />
+          <Route path={'/'} element={<Home/>}/>
           <Route path={'/landing'} element={<Landing/>}/>
           <Route path={'/dashboard'} element={<Dashboard/>}/>
         </Routes>
-      </BrowserRouter>
+      </Suspense>
+    </BrowserRouter>
     </div>
   )
 }
 
-//component: buttons to navigate to different pages
-const Navigate = ()=>{
-  const navigation = useNavigate();
-
-  const homeFunc = ()=> navigation('/');
-  const landingFunc = ()=>navigation('/landing');
-  const dashboardFunc = ()=>navigation('/dashboard');
-
+//component: AppBar
+const AppBar = ()=>{
+  const navigate = useNavigate();
   return(
     <div>
-      <button onClick={homeFunc} className='navigateBtn'>Home</button>
-      <button onClick={landingFunc} className='navigateBtn'>Landing</button>
-      <button onClick={dashboardFunc} className='navigateBtn'>Dashboard</button>
+      <button onClick={()=>navigate('/landing')} className="navigateBtn">Landing Page</button>
+      <button onClick={()=>navigate('/dashboard')} className="navigateBtn">Dashing Page</button>
+      <button onClick={()=>navigate('/')} className="navigateBtn">Home Page</button>
     </div>
   )
 }
