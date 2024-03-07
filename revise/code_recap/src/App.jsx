@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from "react";
 import './App.css'
 import {BrowserRouter, Route, Routes, useNavigate} from 'react-router-dom'
+import Navigation from "./components/Navigation";
 // import { Home } from "./components/Home";
 // import Landing from "./components/Landing";
 // import Dashboard from "./components/Dashboard";
@@ -13,6 +14,7 @@ export default function App(){
 
   return(
     <div>
+      <Navigation/>
       <BrowserRouter>
         <div><AppBar/></div>
         <Suspense fallback={<p>Loading...</p>}>
