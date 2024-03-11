@@ -1,23 +1,26 @@
 import React, {useState} from "react";
 
-export function Preview(){
+export default function Preview(){
     const [check, setCheck] = useState(false);
-    const [msg, setMsg] = useState();
+    const [msg, setMsg] = useState("Hello, **world**!");
 
-    const checkFunc = ()=>{
-         setMsg(
-            <p>Preview</p>
-         )
-    }
+    
     return(
         <div>
-            <input type="textbox" placeholder='Enter your text here' /> <br/>
+            <input type="textbox" placeholder='Enter your text here' 
+            value={msg} 
+            onChange={(e)=>setMsg(e.target.value)}
+            />
+
+             <br/>
             <label htmlFor="">
-                <input type="checkbox" checked={check} onChange={(e)=>setCheck(e.target.value)} />
+                <input type="checkbox" checked={check} onChange={(e)=>setCheck(e.target.checked)} />
                 Show Preview
             </label>
             <hr/>
-            {check? <p>Working</p>:null}
+            {check? <p><strong>{msg}</strong></p>:null}
+            
+
         </div>
     )
 }
