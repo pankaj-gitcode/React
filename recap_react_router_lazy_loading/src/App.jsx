@@ -1,25 +1,16 @@
-import React, { Suspense, lazy } from 'react'
+import React from 'react'
 import './App.css'
-
-// import { Preview } from './components/Preview'
-const Preview = lazy(()=>delayDemo(import('./components/Preview')));
-
+import Preview from './components/Preview'
+import { RecoilRoot } from 'recoil'
+import Buttons from './components/Buttons'
 
 export default function App(){
-
   return(
     <div>
-    <Suspense fallback={'Loading...'}>
+    <RecoilRoot>
+      {/* <Buttons /> */}
       <Preview/>
-    </Suspense>
-
+    </RecoilRoot>
     </div>
   )
-}
-
-const delayDemo = (prom)=>{
-  return new Promise((resolve, reject)=>{
-    return setTimeout(resolve(), 2000);
-  })
-  .then(value=>prom).catch(err=>console.log(err));
 }
