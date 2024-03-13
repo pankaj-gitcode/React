@@ -1,30 +1,36 @@
 import React from "react";
 import './App.css'
-import {RecoilRoot, useRecoilValue} from 'recoil'
-import { todoAtom } from "./components/Atoms";
-import { useState } from "react";
-import { useMemo } from "react";
+import {RecoilRoot,useRecoilValue, useRecoilState} from 'recoil'
+import { countAtom, todoAtom } from "./components/Atoms";
 
 export default function App(){
-  const [num, setNum] = useState(1);
-  const valNum = useMemo(()=>{
-    return num <= 10? num: setNum(1);
-  }, [num])
   return(
     <div>
-    <input type="number" value={num} onChange={(e)=>setNum(e.target.value)} />
-    
       <RecoilRoot>
-      {console.log(valNum)}
-        <TodoApp id={valNum}/>
+        <MainApp />
       </RecoilRoot>
     </div>
   )
 }
 
-const TodoApp = ({id})=>{
-  const todo = useRecoilValue(todoAtom(id))
+const MainApp = ()=>{
+  const [count, setCount] = useRecoilState(countAtom);
+  return(
+    <div>
+      <button onClick={()=>setCount(count=>count+1)}>Increase {count}</button>
+      { count <=10?  <TodoApp id={count} />: setCount(1)}
 
+      <input type="number" value={count} onChange={(e)=>setCount(e.target.value)} />
+      { 
+       count >0 && count <=10? <TodoApp id={count}/> : setCount(1)
+      }
+      
+    </div>
+  )
+}
+
+const TodoApp = ({id})=>{
+  const todo = useRecoilValue(todoAtom(id));
   return(
     <div>
       <h5>ID: {todo.id}</h5>
@@ -32,4 +38,4 @@ const TodoApp = ({id})=>{
       <h5>Description: {todo.description}</h5>
     </div>
   )
-}
+} 

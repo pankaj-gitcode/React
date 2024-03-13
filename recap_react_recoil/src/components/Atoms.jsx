@@ -3,6 +3,10 @@ import { TodoList } from './TodoList'
 
 export const todoAtom = atomFamily({
     key: 'todoAtom',
-    default:(id)=>TodoList.find(e=>e.id==id)
+    default: (id)=>TodoList.find(e=>e.id==id)
 })
 
+export const countAtom = atom({
+    key: 'countAtom',
+    default: 1
+})
