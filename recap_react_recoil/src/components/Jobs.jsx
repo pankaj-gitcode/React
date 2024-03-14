@@ -1,9 +1,8 @@
 import React from 'react'
 import '../App.css'
 
-export default function Home(){
-
+export default function Jobs(){
     return(
-        <div>Home</div>
+        <div>Jobs</div>
     )
 }
