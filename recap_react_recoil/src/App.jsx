@@ -1,43 +1,41 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import './App.css'
-import { RecoilRoot, useRecoilState, useRecoilValue } from 'recoil'
-import {countAtom, todoAtom} from './components/Atoms'
+import { BrowserRouter, Route, Routes, useNavigate, useNavigation } from 'react-router-dom';
+
+const Products = lazy(()=>import('./components/Products'));
+const Services = lazy(()=>import('./components/Services'));
+const ContactUs = lazy(()=>import('./components/ContactUs'));
+const Home = lazy(()=>import('./components/Home'));
 
 export default function App(){
+
   return(
     <div>
-      <RecoilRoot>
-        <MainApp/>
-      </RecoilRoot>
+      <BrowserRouter>
+        <Suspense fallback={'Loading...'}>
+          <div><Navigations /></div>
+          <Routes>
+            <Route path={'/'} element={<Home />}/>
+            <Route path={'/products'} element={<Products />}/>
+            <Route path={'/services'} element={<Services />}/>
+            <Route path={'/contact'} element={<ContactUs/>}/>
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </div>
   )
 }
 
-//component: render todoAtom 
-const MainApp = ()=>{
-  const [count, setCount] = useRecoilState(countAtom);
+const Navigations = ()=>{
+
+  const navigation = useNavigate();
+   
   return(
     <div>
-      <button onClick={()=>setCount(count=>count+1)}>Click to see next Todo {count}</button>
-      {/*  if count >= 10 then excute component<Todo with id={count}/> else set the count again from 1 */}
-      {count<=10? <Todo id={count}/>:setCount(1)} 
-
-      {/* //through INput */}
-      <input type="number" value={count} onChange={(e)=>setCount(e.target.value)} />
-      {count<=0 && count >=10? setCount(1): <Todo id={count}/>}
-      
-    </div>
-  )
-}
-
-//component: render actual Todo here
-const Todo = ({id})=>{
-  const todo = useRecoilValue(todoAtom(id))
-  return(
-    <div>
-      <h5>Id: {todo.id}</h5>
-      <h5>Title: {todo.title}</h5>
-      <h5>Description: {todo.description}</h5>
+      <button onClick={()=>navigation('/')}>Home</button>
+      <button onClick={()=>navigation('/products')}>Products</button>
+      <button onClick={()=>navigation('/services')}>Services</button>
+      <button onClick={()=>navigation('/contact')}>Contact Us</button>
     </div>
   )
 }
