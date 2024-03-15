@@ -14,9 +14,12 @@ const Notification = lazy(()=>import('./components/Notifications'));
 export default function App(){
   return(
     <div>
-      <div style={{backgroundColor:'RoyalBlue'}}>Header</div>
+
+      {/* <div style={{backgroundColor:'RoyalBlue'}}>Header</div> */}
       <BrowserRouter>
-        <div style={{height:'20vh'}}><NavigateBtn /></div>
+    <CardWrapper > <div style={{height:'20vh'}}><NavigateBtn /></div> </CardWrapper>
+        <div style={{height:'20vh'}}><NavigateBtn /></div> 
+      
         <Suspense fallback={'Loading...'}>
           <Routes>
             <Route path={'/'} element={<Home />} />
@@ -29,8 +32,10 @@ export default function App(){
             <MainApp />
           </RecoilRoot>
         </Suspense>
+        <CardWrapper >LinkedIn X Facebook</CardWrapper>
       </BrowserRouter>
-      <div style={{backgroundColor:'RoyalBlue'}}>Footer</div>
+      {/* <div style={{backgroundColor:'RoyalBlue'}}>Footer</div> */}
+   
     </div>
   )
 }
@@ -74,6 +79,15 @@ const TodoApp = ({id})=>{
         <li>Description: {todo.description}</li>
         <li>Complete: {todo.complete}</li>
       </ul>
+    </div>
+  )
+}
+
+//cardwrapper component
+const CardWrapper = ({children})=>{
+  return(
+    <div style={{backgroundColor:'royalBlue'}}>
+      {children}
     </div>
   )
 }
