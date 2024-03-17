@@ -1,30 +1,31 @@
-import React from 'react'
+import React, { Suspense, lazy } from 'react'
 import './App.css'
-import Card from './components/Card'
-import Info from './components/Info'
+// import Card from './components/Card'
+import {RecoilRoot} from 'recoil'
+const Card = lazy(()=>import('./components/Card'))
 
 export default function App(){
   return(
     <div>
       <CardWrapper>
-       <Card />
+        This is Card profiler
+        <RecoilRoot>
+      <Suspense fallback={'Loading...'}>
+
+        <Card/>
+      </Suspense>
+  
+        </RecoilRoot>
       </CardWrapper>
-      <div style={{backgroundColor: 'black'}}><Info/></div>
-      
     </div>
   )
 }
 
-//card wrapper component
+//cardwrapper component
 const CardWrapper = ({children})=>{
   return(
-    <div>
-      <div className="cardwrapperParent">
-    <div style={{backgroundColor: 'royalBlue'}} className='cardwrapper'>
+    <div id='cardwrapper' >      
       {children}
-    </div>
-      </div>
     </div>
   )
 }
-

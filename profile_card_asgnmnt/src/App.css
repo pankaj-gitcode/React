@@ -2,39 +2,102 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  background-color: #424242;
+  /* background-color: #424242; */
 }
-.cardwrapperParent{
+
+body{
+  font-family: sans-serif;
+}
+#cardwrapper{
+  background-color: rgb(103, 104, 107);
+}
+
+
+.mainBox{
   display: flex;
   align-items: center;
   justify-content: center;
-  /* background-color: yellow; */
-  margin: 10% 50px;
+  /* background-color: red; */
+  height: 100vh;
 }
 
-.cardwrapper{
-  width: 40vw;
-  height: 30vh;
+/* containers */
+.container{
+  width: 35vw;
+  height: content-fit;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  flex-direction: column;
+  background-color: #ffffff;
+  border-radius: 22px;
+  box-shadow: 2px 2px 8px 2px rgba(0,0,0,0.5);
+  transition: box-shadow .2s ease;
+}
+.container:hover{
+  box-shadow: 2px 2px 8px 2px rgba(64, 224, 208, 0.5);
+  text-shadow: 5px 0px 10px rgba(64,244,208,0.5);
+}
 
-  background-color: red;
+#top-container{
+  background-color: #40E0D0;
+  width: 35vw;
+  height: 26vh;
   display: flex;
   align-items: center;
   justify-content: center;
+  /* overflow:hidden; */
+  /* position: relative; */
+  border-top-left-radius: 22px;
+  border-top-right-radius: 22px;
   
 }
-
-#img{
+.nerdImg{
   width: 100px;
   height: 100px;
-  border-radius:50%;
-  background-color: royalblue;
-  position: absolute;
-  right: 46%;
-  overflow: hidden
+  border-radius: 50%;
+  position: relative;
+  top: 60px;
 }
 
-.infoContainer{
-  background-color: red;
-  position: absolute;
-  z-index: 1999;
+/* middle div */
+#middle-container{
+  padding-top: 12%;
+}
+
+span{
+  color: #aca6a6;
+  font-weight: 400;
+  padding-left: 10px;
+}
+.para{
+  color: #aca6a6;
+  text-align: center;
+  margin: 10px 0 20px;
+}
+
+.hr{
+  /* background-color: black; */
+  border:1 solid #aca6a6;
+  /* border-style: */
+  width: 35vw;
+}
+
+/* Bottom container */
+#bottom-container{
+  /* background-color: yellow; */
+  margin: 30px 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 70px;
+  text-align: center;
+
+}
+.handles{
+  padding: 5px 0;
+  font-weight:600;
+}
+.htitles{
+  color: #aca6a6;
+  font-size:medium;
 }
