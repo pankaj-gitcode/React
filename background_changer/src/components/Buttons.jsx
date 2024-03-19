@@ -1,36 +1,28 @@
-import React, { useState } from 'react'
+import React from 'react'
 import '../App.css'
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { colorsAtom } from './Atoms'
+import { useRecoilValue } from 'recoil'
+import { colorAtom } from './Atoms';
 
 export default function Buttons(){
-   const [colors, setColors] = useRecoilState(colorsAtom);
-   
+    const colors = useRecoilValue(colorAtom);
 
-   const btnClass = document.querySelectorAll('.btns');
-
-    Array.from(btnClass).forEach((e)=>{
-        e.addEventListener('click', (elem)=>{
-            const textElement = e.textContent.trim().toLowerCase();
-            return document.body.style.backgroundColor = textElement;
-        })
-    })
-   
-   
+    const bodyColrChanger = (color)=>{
+        document.body.style.backgroundColor = color
+    }
 
     return(
         <div className='container'>
-        <div className='btns-container'>
-            <button className='btns' style={{backgroundColor: colors[0]}}>Red</button>
-            <button className='btns' style={{backgroundColor: colors[1]}}>Yellow</button>
-            <button className='btns' style={{backgroundColor: colors[2]}}>Black</button>
-            <button className='btns' style={{backgroundColor: colors[3]}}>Purple</button>
-            <button className='btns' style={{backgroundColor: colors[4]}}>Green</button>
-            <button className='btns' style={{backgroundColor: colors[5]}}>Blue</button>
-            <button className='btns' style={{backgroundColor: colors[6]}}>Default</button>
-
-         
-        </div>
+            <div className='btn-container'>
+            {/* create buttons mapping with {colors}  */}
+            {
+                colors.map((color, i)=>
+                <button 
+                key={i} 
+                style={{backgroundColor: color, color: color=='black'?'white':'black'}}
+                className='btns'
+                onClick={()=>bodyColrChanger(color)}>{color}</button>)
+            }
+            </div>
         </div>
     )
 }

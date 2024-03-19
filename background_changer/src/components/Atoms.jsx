@@ -1,9 +1,6 @@
-import {atom, atomFamily, selector} from 'recoil'
+import {atom} from 'recoil'
 
-export const colorsAtom = atom({
-    key: 'colorsAtom',
-    default: ['red', 'yellow', 'black', 'purple', 'green', 'blue', 'lavender']
+export const colorAtom = atom({
+    key: 'colorAtom',
+    default: ['red', 'yellow', 'black', 'purple', 'green', 'blue', 'turquoise']
 })
-
-
-// ['red', 'yellow', 'black', 'purple', 'green', 'blue', 'default']
