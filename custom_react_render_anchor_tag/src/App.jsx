@@ -7,11 +7,11 @@ const Word = lazy(()=>import('./components/Word'));
 export default function App(){
   return(
     <div>
+        <Suspense fallback={'loading...'}>
       <RecoilRoot>
-        <Suspense>
           <Word />
-        </Suspense>
       </RecoilRoot>
+        </Suspense>
     </div>
   )
 }
