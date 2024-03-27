@@ -2,7 +2,7 @@ import React, { Suspense, lazy } from 'react'
 import './App.css'
 // import Card from './components/Card'
 import {RecoilRoot} from 'recoil'
-const Card = lazy(()=>import('./components/Card'))
+const Card = lazy(()=>import('./components/Card'));
 
 export default function App(){
   return(
