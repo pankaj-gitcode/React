@@ -1,18 +1,35 @@
-import React from 'react'
+import React, {lazy, Suspense} from 'react'
 import '../App.css'
-import { useRecoilValue } from 'recoil'
-import { infoAtom } from './Atom'
+import { useRecoilState, useRecoilValue } from 'recoil'
+import { inputAtom } from './Atom'
+// import GitInfo from './GitInfo';
 
-export default function MainApp({userId}){
-    const info = useRecoilValue(infoAtom(userId));
+
+const GitInfo = lazy(()=>import('./GitInfo'));
+
+export default function MainApp(){
+    const inputId = useRecoilValue(inputAtom);
     return(
         <div>
-            <ul>
-                <li>login: {info.login}</li>
-                <li>Avatar: {info.avatar_url}</li>
-                <li>following: {info.following}</li>
-                {/* <li><img src={info.avatar_url} alt="GitDP" /></li> */}
-            </ul>
+                <InputBox />
+        <Suspense fallback={'Loading...'}>
+
+                <GitInfo id={inputId}/>
+        </Suspense>
+           
+        </div>
+    )
+}
+
+const InputBox = ()=>{
+    const [userInput, setUserInput] = useRecoilState(inputAtom);
+    return(
+        <div>
+            <input type="text" 
+                placeholder='Enter git ID'
+                value={userInput}
+                onChange={(e)=>setUserInput(e.target.value)}
+            />
         </div>
     )
 }
