@@ -1,15 +1,19 @@
 import React from 'react'
 import '../App.css'
 import { useRecoilValue } from 'recoil'
-import { gitInfoAtom } from './Atom'
+import { gitAPIAtom } from './Atom'
 
 export default function GitInfo({id}){
-    const gitData = useRecoilValue(gitInfoAtom(id))
+    const gitAPI = useRecoilValue(gitAPIAtom(id))
+    if(!gitAPI) return <div>Loading...</div>
     return(
-        <ul>
-            <li>Login: {gitData.login}</li>
-            <li>Id: {gitData.id}</li>
-            <li>DP: {gitData.avatar_url}</li>
-        </ul>
+        <div>
+            <ul>
+                {/* <li>{JSON.stringify(gitAPI)}</li> */}
+                <li>ID: {gitAPI.id}</li>
+                <li>Login: {gitAPI.login}</li>
+                <li>Profile Picture: {gitAPI.avatar_url}</li>
+            </ul>
+        </div>
     )
 }
