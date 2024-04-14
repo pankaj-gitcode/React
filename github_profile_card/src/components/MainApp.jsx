@@ -1,35 +1,44 @@
-import React, {lazy, Suspense} from 'react'
+import React, {usecallback} from 'react'
 import '../App.css'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { inputAtom } from './Atom'
-// import GitInfo from './GitInfo';
-
-
-const GitInfo = lazy(()=>import('./GitInfo'));
+import { debounceAtom, gitAPIAtom, inputSearchAtom } from './Atom'
+import GitInfo from './GitInfo'
+// import Debounce from './Debounce'
 
 export default function MainApp(){
-    const inputId = useRecoilValue(inputAtom);
+    const inputSearchData = useRecoilValue(inputSearchAtom)
+    const debouncedFunc = useRecoilValue(gitAPIAtom);
+
+    
     return(
         <div>
-                <InputBox />
-        <Suspense fallback={'Loading...'}>
-
-                <GitInfo id={inputId}/>
-        </Suspense>
-           
+            <InputData/>
+            <GitInfo id={debouncedFunc?.login}/>
+            {/* <Debounce func={gitAPIData} delay={3000}/> */}
         </div>
     )
 }
 
-const InputBox = ()=>{
-    const [userInput, setUserInput] = useRecoilState(inputAtom);
+//input element
+const InputData = ()=>{
+    const [inputSearchData, setInputSearchData] = useRecoilState(inputSearchAtom);
+    const [debounceFunc] = useRecoilState();
+    
+    const debouncedFunc = useRecoilValue( usecallback(debounceFunc(gitAPIAtom, 300),[inputSearchData, gitAPIAtom]) )
+    
+    
+    const handleDebounce = (e)=>{
+        setInputSearchData(e.target.value);
+        
+    }
+
     return(
         <div>
-            <input type="text" 
-                placeholder='Enter git ID'
-                value={userInput}
-                onChange={(e)=>setUserInput(e.target.value)}
-            />
+            <input type="text"
+            value={inputSearchData}
+            onChange={handleDebounce}
+             />
         </div>
     )
 }
+
