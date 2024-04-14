@@ -1,23 +1,36 @@
-import axios from 'axios'
 import {atom, atomFamily, selectorFamily} from 'recoil'
-// import { PassThrough } from 'stream';
+import axios from 'axios'
 
-export const gitInfoAtom = atomFamily({
-    key: 'gitInfoAtom',
+
+export const inputSearchAtom = atom({
+    key: 'inputSearchAtom',
+    default: ""
+})
+
+
+export const gitAPIAtom = atomFamily({
+    key: 'atomFamily',
     default: selectorFamily({
-        key: 'gitInfoSelector',
-        get:(id)=>async({get})=>{
-            try{
-                // if(id == ""){return id ='pankaj-gitcode'}
-                const res = await axios.get(`https://api.github.com/users/${id}`);
-                return res.data;
-            }
-            catch(err){console.log(`ERROR is: ${err}`);}
+        key: 'gitAPISelector',
+        get: async({get})=>{
+            const id = get(inputSearchAtom);
+            const response = await axios.get(`https://api.github.com/users/${id}`);
+            return response.data;
         }
     })
 })
 
-export const inputAtom = atom({
-    key: 'inputAtom',
-    default: "raj"
+
+
+export const debounceAtom = atomFamily({
+    key: 'debounceAtom',
+    default:(fn,delay)=>{
+        let timeoutID;
+        return function(...args){
+            clearTimeout(timeoutID);
+            timeoutID = setTimeout(()=>{
+                fn.apply(this, args)
+            }, delay)
+        }
+    }
 })
