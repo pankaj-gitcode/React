@@ -8,50 +8,42 @@ export default function InputBox(){
     const [inputVal, setInputVal] = useRecoilState(inputValAtom);
     const maxLength = useRecoilValue(maxLengthAtom);
 
-    const divref = useRef();
-    
-
-   
+    // const divref = useRef();
 
     useEffect(()=>{
-        document.getElementById(`${inputID[0].id}`).focus()
-        
-        
-        
+        document.getElementById(`${inputID[0].id}`).focus()    
     }, [])
-    // for (let i=1; i<inputID.length;i++){
-    //     if(document.getElementById(inputID[i].id).value.length < maxLength){
-    //         document.getElementById(inputID[i].id).focus()
-    //     }
-    // }
+    
+    const inputHandle = (eId)=>{
+        document.getElementById(eId).value
+        console.log(document.getElementById(eId).value, eId)
 
+        if(document.getElementById(eId).value.length < maxLength){
+            return document.getElementById(eId).focus()
+        }
+        //make use of find(), whereever value.length < maxlength focus() there
+        const nextElement = inputID.find((elem)=>document.getElementById(elem.id).value.length<maxLength) 
+        if(nextElement){
+            document.getElementById(nextElement.id).focus()
+        } 
+        console.log("NextElement👉🏻",nextElement)      
+
+    }
     
     return(
-        <div>
-            
+        <div>  
             {
                 inputID.map((elem,i)=>
                 <input type="text"  key={i}
                     placeholder='Enter OTP'
                     maxLength={maxLength} //to use in if condition
                     id={elem.id}
-                    // value={inputVal}
-                    onKeyUp={()=>
-                        elem.func()
-                    }
-                    // ref={divref}
+                    
+                    onKeyUp={()=>inputHandle(elem.id)}
                 />
                 )
             }
-
-
-
-             {/* <input type="text" placeholder='Enter Number here' maxLength='1' id={inputID[4]}
-              value={inputVal} onKeyUp={handleInp5} ref={divref}/>   */}
-
              <button >Click</button>
-
-            
 
             <p>{inputVal}</p>
         </div>
