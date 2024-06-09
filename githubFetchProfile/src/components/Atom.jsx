@@ -1,11 +1,13 @@
 import {atom} from 'recoil'
 
-export const  gitUserNameAtom = atom({
-    key: 'gitUserNameAtom',
-    default:''
-})
-
-export const dataValAtom = atom({
-    key: 'dataValAtom',
+export const userInputAtom = atom({
+    key: 'userInputAtom',
     default: ''
 })
+
+export const APIDataAtom = atom({
+
+    key: 'APIDataAtom',
+    default: {}
+}
+)

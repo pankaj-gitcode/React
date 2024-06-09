@@ -1,30 +1,57 @@
-import React, {useState} from 'react'
+//.mainAppDiv & .inputBox
+import React, { useEffect, useState } from 'react'
 import '../App.css'
-import axios from 'axios'
 import { useRecoilState, useRecoilValue } from 'recoil'
-import { dataValAtom, gitUserNameAtom } from './Atom'
+import {APIDataAtom, userInputAtom} from './Atom'
+import axios from 'axios'
 
 export default function MainApp(){
 
-    const [gitUserName, setGitUserName] = useRecoilState(gitUserNameAtom);
-    const [fetchAPIData,setFetchAPIData] = useRecoilState(dataValAtom); 
+    return(
+        <>
+            <InputBox />
+            <DataFetch/>
+        </>
+    )
+}
 
-    const fetchData = ()=>{
-        const response = axios.get(`https://api.github.com/users/${gitUserName}`)
-        .then(res=>setFetchAPIData(JSON.stringify(res.data)))
-        
-    }
+const InputBox = ()=>{
+    const [userId, setUserId] = useRecoilState(userInputAtom);
+    return(
+        <>
+            <div className="mainAppDiv">
+                <input type="text" className="inputBox" 
+                    placeholder='Enter Git User-Id'
+                    value={userId}
+                    onChange={(e)=>setUserId(e.target.value)}
+                />
+                <button className="btn">Click</button>
+            </div>
+        </>
+    )
+}
 
-    return(<>
-
-        <div className='mainAppDiv'>
-           <input type="text" className="inputBox" 
-            value={gitUserName}
-            onChange={(e)=>setGitUserName(e.target.value)}
-           />
-           <button onClick={fetchData}>Click</button> 
-           <p>Data is: {fetchAPIData}</p>
-        </div>
-    </>
+const DataFetch = ()=>{
+    const userId = useRecoilValue(userInputAtom);
+    const [APIData, setAPIData] = useRecoilState(APIDataAtom)
+    //fetch data - debounce
+    useEffect(()=>{
+        const getData = setTimeout(()=>{
+            axios.get(`https://api.github.com/users/${userId}`)
+            .then(res=>{console.log(`DATA is: ${JSON.stringify(res.data)}`);setAPIData(res.data);return res.data})
+            // .then((data)=>{
+            //     console.log(`Data is: ${JSON.stringify(data)}`);
+            //     setAPIData(data)
+            // })
+        }, 2000)
+        return ()=>clearTimeout(getData)
+    }, [userId])
+    return(
+        <>
+            <div className="dataFetch">
+                {/* <p>Data is: {APIData}</p> */}
+                <h1>ID: {APIData.id}</h1>
+            </div>
+        </>
     )
 }

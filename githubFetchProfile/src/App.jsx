@@ -38,6 +38,7 @@ const Header = ()=>{
 
       <div className="header" >
         <ul className='services'>
+          <li onClick={()=>navigation('/')}>Home</li>
           <li onClick={()=>navigation('/followers')}>Followers</li>
           <li onClick={()=>navigation('/repo')}>Repo</li>
           <li onClick={()=>navigation('/details')}>All Services</li>
